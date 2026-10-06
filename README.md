@@ -38,3 +38,10 @@ It does not connect to a real bank, process payments, access real accounts, or h
 ## Author
 
 Built by Chadrack as part of a web development portfolio.
+
+## Live Demo
+
+[view NovaBank]( https://chadtylor.github.io/novabank-dashboard/)
+
+
+
