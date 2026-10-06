@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>NovaBank — Demo Banking Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          N
+        </div>
+
+        <div>
+          <strong>NovaBank</strong>
+          <small>Demo banking</small>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <button
+          class="nav-button active"
+          data-view="dashboard"
+          type="button"
+        >
+          <span>⌂</span>
+          Dashboard
+        </button>
+
+        <button
+          class="nav-button"
+          data-view="transactions"
+          type="button"
+        >
+          <span>⇄</span>
+          Transactions
+        </button>
+
+        <button
+          class="nav-button"
+          data-view="cards"
+          type="button"
+        >
+          <span>▣</span>
+          Cards
+        </button>
+
+        <button
+          class="nav-button"
+          data-view="savings"
+          type="button"
+        >
+          <span>◇</span>
+          Savings
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="demo-badge">
+          <span></span>
+
+          <div>
+            <small>DEMO MODE</small>
+            <strong>No real money</strong>
+          </div>
+        </div>
+
+        <button
+          id="resetButton"
+          class="reset-button"
+          type="button"
+        >
+          Reset demo data
+        </button>
+      </div>
+    </aside>
+
+    <section class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">
+            Personal finance
+          </p>
+
+          <h1 id="pageTitle">
+            Dashboard
+          </h1>
+
+          <p id="pageSubtitle">
+            Your demo financial overview.
+          </p>
+        </div>
+
+        <div class="top-actions">
+          <button
+            id="sendMoneyButton"
+            class="primary-button"
+            type="button"
+          >
+            + Send money
+          </button>
+
+          <div class="profile-card">
+            <div class="profile-avatar">
+              JD
+            </div>
+
+            <div>
+              <strong>Jordan Davis</strong>
+              <small>Demo account</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section
+        id="dashboardView"
+        class="view active-view"
+      >
+        <div class="overview-grid">
+          <article class="balance-card">
+            <div class="balance-top">
+              <div>
+                <span>Total balance</span>
+
+                <strong id="totalBalance">
+                  £0.00
+                </strong>
+              </div>
+
+              <div class="balance-logo">
+                N
+              </div>
+            </div>
+
+            <div class="balance-bottom">
+              <div>
+                <span>Available</span>
+                <strong id="availableBalance">
+                  £0.00
+                </strong>
+              </div>
+
+              <div>
+                <span>This month</span>
+                <strong id="monthlyChange">
+                  +£0.00
+                </strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon income-icon">
+              ↓
+            </div>
+
+            <div>
+              <span>Income</span>
+              <strong id="incomeValue">
+                £0.00
+              </strong>
+              <small>This month</small>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon spending-icon">
+              ↑
+            </div>
+
+            <div>
+              <span>Spending</span>
+              <strong id="spendingValue">
+                £0.00
+              </strong>
+              <small>This month</small>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon saving-icon">
+              ◇
+            </div>
+
+            <div>
+              <span>Savings</span>
+              <strong id="savingsValue">
+                £0.00
+              </strong>
+              <small>Across goals</small>
+            </div>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">
+                  Activity
+                </p>
+
+                <h2>Recent transactions</h2>
+              </div>
+
+              <button
+                class="text-button"
+                data-jump="transactions"
+                type="button"
+              >
+                View all
+              </button>
+            </div>
+
+            <div
+              id="recentTransactions"
+              class="transaction-list"
+            ></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">
+                  This month
+                </p>
+
+                <h2>Spending breakdown</h2>
+              </div>
+            </div>
+
+            <div class="spending-chart">
+              <div
+                id="spendingRing"
+                class="spending-ring"
+              >
+                <div>
+                  <span>Spent</span>
+                  <strong id="ringTotal">
+                    £0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="categoryList"
+              class="category-list"
+            ></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">
+                  Goals
+                </p>
+
+                <h2>Savings progress</h2>
+              </div>
+
+              <button
+                class="text-button"
+                data-jump="savings"
+                type="button"
+              >
+                Manage
+              </button>
+            </div>
+
+            <div
+              id="dashboardGoals"
+              class="goal-list"
+            ></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">
+                  Quick actions
+                </p>
+
+                <h2>Move money</h2>
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <button
+                id="quickSendButton"
+                type="button"
+              >
+                <span>↗</span>
+                Send
+              </button>
+
+              <button
+                id="quickAddSavingButton"
+                type="button"
+              >
+                <span>＋</span>
+                Save
+              </button>
+
+              <button
+                data-jump="cards"
+                type="button"
+              >
+                <span>▣</span>
+                Cards
+              </button>
+
+              <button
+                id="quickIncomeButton"
+                type="button"
+              >
+                <span>↓</span>
+                Add income
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section
+        id="transactionsView"
+        class="view"
+      >
+        <div class="view-heading">
+          <div>
+            <p class="section-label">
+              Account activity
+            </p>
+
+            <h2>Transactions</h2>
+          </div>
+
+          <button
+            id="transactionSendButton"
+            class="primary-button"
+            type="button"
+          >
+            + New transfer
+          </button>
+        </div>
+
+        <section class="panel">
+          <div class="transaction-toolbar">
+            <div class="search-box">
+              <span>⌕</span>
+
+              <input
+                id="transactionSearch"
+                type="search"
+                placeholder="Search transactions..."
+              >
+            </div>
+
+            <select id="transactionFilter">
+              <option value="all">
+                All categories
+              </option>
+
+              <option value="Income">
+                Income
+              </option>
+
+              <option value="Shopping">
+                Shopping
+              </option>
+
+              <option value="Food">
+                Food
+              </option>
+
+              <option value="Transport">
+                Transport
+              </option>
+
+              <option value="Bills">
+                Bills
+              </option>
+
+              <option value="Transfer">
+                Transfer
+              </option>
+            </select>
+          </div>
+
+          <div
+            id="transactionTable"
+            class="full-transaction-list"
+          ></div>
+        </section>
+      </section>
+
+      <section
+        id="cardsView"
+        class="view"
+      >
+        <div class="view-heading">
+          <div>
+            <p class="section-label">
+              Wallet
+            </p>
+
+            <h2>Your cards</h2>
+          </div>
+
+          <button
+            id="toggleCardButton"
+            class="primary-button"
+            type="button"
+          >
+            Freeze card
+          </button>
+        </div>
+
+        <div class="cards-layout">
+          <article
+            id="bankCard"
+            class="bank-card"
+          >
+            <div class="card-top">
+              <span>NovaBank</span>
+              <strong>VISA</strong>
+            </div>
+
+            <div class="chip">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="card-number">
+              •••• •••• •••• 4821
+            </div>
+
+            <div class="card-bottom">
+              <div>
+                <span>Card holder</span>
+                <strong>JORDAN DAVIS</strong>
+              </div>
+
+              <div>
+                <span>Expires</span>
+                <strong>09/30</strong>
+              </div>
+            </div>
+
+            <div
+              id="frozenOverlay"
+              class="frozen-overlay hidden"
+            >
+              FROZEN
+            </div>
+          </article>
+
+          <section class="panel card-settings-panel">
+            <p class="section-label">
+              Card controls
+            </p>
+
+            <div class="setting-row">
+              <div>
+                <strong>Online payments</strong>
+                <span>Allow purchases online</span>
+              </div>
+
+              <label class="switch">
+                <input
+                  id="onlineToggle"
+                  type="checkbox"
+                  checked
+                >
+
+                <span></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <strong>Contactless</strong>
+                <span>Tap to pay</span>
+              </div>
+
+              <label class="switch">
+                <input
+                  id="contactlessToggle"
+                  type="checkbox"
+                  checked
+                >
+
+                <span></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <strong>International</strong>
+                <span>Use card abroad</span>
+              </div>
+
+              <label class="switch">
+                <input
+                  id="internationalToggle"
+                  type="checkbox"
+                >
+
+                <span></span>
+              </label>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section
+        id="savingsView"
+        class="view"
+      >
+        <div class="view-heading">
+          <div>
+            <p class="section-label">
+              Future plans
+            </p>
+
+            <h2>Savings goals</h2>
+          </div>
+
+          <button
+            id="newGoalButton"
+            class="primary-button"
+            type="button"
+          >
+            + New goal
+          </button>
+        </div>
+
+        <div
+          id="savingsGrid"
+          class="savings-grid"
+        ></div>
+      </section>
+    </section>
+  </main>
+
+  <section
+    id="sendModal"
+    class="modal hidden"
+  >
+    <div class="modal-card">
+      <button
+        class="modal-close"
+        data-close="sendModal"
+        type="button"
+      >
+        ×
+      </button>
+
+      <p class="section-label">
+        Demo transfer
+      </p>
+
+      <h2>Send money</h2>
+
+      <label>
+        Recipient
+
+        <input
+          id="recipientInput"
+          type="text"
+          placeholder="Alex Morgan"
+        >
+      </label>
+
+      <label>
+        Amount
+
+        <div class="money-input">
+          <span>£</span>
+
+          <input
+            id="sendAmountInput"
+            type="number"
+            min="1"
+            step="0.01"
+            placeholder="50.00"
+          >
+        </div>
+      </label>
+
+      <label>
+        Note
+
+        <input
+          id="sendNoteInput"
+          type="text"
+          placeholder="Dinner"
+        >
+      </label>
+
+      <button
+        id="confirmSendButton"
+        class="primary-button full-button"
+        type="button"
+      >
+        Send demo payment
+      </button>
+
+      <p class="demo-note">
+        This is a fictional demo. No real payment will be sent.
+      </p>
+    </div>
+  </section>
+
+  <section
+    id="incomeModal"
+    class="modal hidden"
+  >
+    <div class="modal-card">
+      <button
+        class="modal-close"
+        data-close="incomeModal"
+        type="button"
+      >
+        ×
+      </button>
+
+      <p class="section-label">
+        Demo deposit
+      </p>
+
+      <h2>Add income</h2>
+
+      <label>
+        Description
+
+        <input
+          id="incomeNameInput"
+          type="text"
+          placeholder="Salary"
+        >
+      </label>
+
+      <label>
+        Amount
+
+        <div class="money-input">
+          <span>£</span>
+
+          <input
+            id="incomeAmountInput"
+            type="number"
+            min="1"
+            step="0.01"
+            placeholder="1200"
+          >
+        </div>
+      </label>
+
+      <button
+        id="confirmIncomeButton"
+        class="primary-button full-button"
+        type="button"
+      >
+        Add demo income
+      </button>
+    </div>
+  </section>
+
+  <section
+    id="goalModal"
+    class="modal hidden"
+  >
+    <div class="modal-card">
+      <button
+        class="modal-close"
+        data-close="goalModal"
+        type="button"
+      >
+        ×
+      </button>
+
+      <p class="section-label">
+        Savings
+      </p>
+
+      <h2>Create goal</h2>
+
+      <label>
+        Goal name
+
+        <input
+          id="goalNameInput"
+          type="text"
+          placeholder="New laptop"
+        >
+      </label>
+
+      <label>
+        Target amount
+
+        <div class="money-input">
+          <span>£</span>
+
+          <input
+            id="goalTargetInput"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="1500"
+          >
+        </div>
+      </label>
+
+      <button
+        id="confirmGoalButton"
+        class="primary-button full-button"
+        type="button"
+      >
+        Create goal
+      </button>
+    </div>
+  </section>
+
+  <section
+    id="savingDepositModal"
+    class="modal hidden"
+  >
+    <div class="modal-card">
+      <button
+        class="modal-close"
+        data-close="savingDepositModal"
+        type="button"
+      >
+        ×
+      </button>
+
+      <p class="section-label">
+        Add savings
+      </p>
+
+      <h2 id="depositGoalTitle">
+        Add to goal
+      </h2>
+
+      <label>
+        Amount
+
+        <div class="money-input">
+          <span>£</span>
+
+          <input
+            id="savingDepositInput"
+            type="number"
+            min="1"
+            step="0.01"
+            placeholder="100"
+          >
+        </div>
+      </label>
+
+      <button
+        id="confirmSavingDeposit"
+        class="primary-button full-button"
+        type="button"
+      >
+        Move demo money
+      </button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
